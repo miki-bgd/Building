@@ -29,7 +29,7 @@ namespace Building.Commands.CreateBuildings
         private static ObjectId GetPolyline(Editor ed)
         {
             // Select polyline
-            PromptEntityOptions entityOptions = new PromptEntityOptions("Select Polyline");
+            PromptEntityOptions entityOptions = new PromptEntityOptions("\nSelect Polyline: ");
             entityOptions.SetRejectMessage("Not a Polyline!");
             entityOptions.AllowNone = false;
             entityOptions.AddAllowedClass(typeof(Polyline), true);
@@ -41,7 +41,7 @@ namespace Building.Commands.CreateBuildings
         private static bool GetNumberOfFloors(Editor ed, ref int numberOfFloors)
         {
             // Select text (or type number of floors)
-            PromptEntityOptions entityOptions = new PromptEntityOptions("Select Text (or Enter to skip)");
+            PromptEntityOptions entityOptions = new PromptEntityOptions("\nSelect Text (or Enter to skip): ");
             entityOptions.SetRejectMessage("Not Text or MText");
             entityOptions.AddAllowedClass(typeof(DBText), true);
             entityOptions.AddAllowedClass(typeof(MText), true);
@@ -49,7 +49,7 @@ namespace Building.Commands.CreateBuildings
             PromptEntityResult entityResult = ed.GetEntity(entityOptions);
             if (entityResult.Status == PromptStatus.None)
             {
-                PromptIntegerOptions integerOptions = new PromptIntegerOptions("Enter number of floors:");
+                PromptIntegerOptions integerOptions = new PromptIntegerOptions("\nEnter number of floors:");
                 integerOptions.DefaultValue = 1;
                 PromptIntegerResult integerResult = ed.GetInteger(integerOptions);
                 if (integerResult.Status != PromptStatus.OK)
@@ -75,7 +75,7 @@ namespace Building.Commands.CreateBuildings
                     {
                         numberOfFloors = FloorCount.GetCount(s);
                     }
-                    ed.WriteMessage($"Number of floors: {numberOfFloors}");
+                    ed.WriteMessage($"\nNumber of floors: {numberOfFloors}");
                 }
             }
             return true;
@@ -84,7 +84,7 @@ namespace Building.Commands.CreateBuildings
         private static bool GetFloorHeight(Editor ed, ref double height)
         {
             // Enter height
-            PromptDoubleOptions doubleOptions = new PromptDoubleOptions("Enter floor height:");
+            PromptDoubleOptions doubleOptions = new PromptDoubleOptions("\nEnter floor height:");
             doubleOptions.DefaultValue = 2.6;
             doubleOptions.AllowNegative = false;
             doubleOptions.AllowArbitraryInput = false;
@@ -124,7 +124,7 @@ namespace Building.Commands.CreateBuildings
                 BlockTableRecord ms = tr.GetObject(doc.Database.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
 
                 Polyline pl = tr.GetObject(polylineId, OpenMode.ForRead) as Polyline;
-                doc.Editor.WriteMessage($"Selected polyline with surface: {pl.Area} m2\n");
+                doc.Editor.WriteMessage($"Selected polyline with surface: {pl.Area.ToString("0.00")} m2\n");
 
                 Solid3d solid = new Solid3d();
                 ms.AppendEntity(solid);

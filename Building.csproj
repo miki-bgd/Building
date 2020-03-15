@@ -71,6 +71,7 @@
     <!--AME Reference End-->
     <Reference Include="AcCoreMgd">
       <HintPath>..\..\..\..\..\..\..\ObjectARX\ObjectARX 2015\inc\AcCoreMgd.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="AcDbMgd">
       <HintPath>..\..\..\..\..\..\..\ObjectARX\ObjectARX 2015\inc\AcDbMgd.dll</HintPath>
