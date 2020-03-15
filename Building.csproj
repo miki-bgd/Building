@@ -152,6 +152,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+
+if $(ConfigurationName) ==DebugAutocad  copy /Y  "$(TargetPath)" "$(TargetDir)$(ProjectName) Autocad.dll"  /v /y
+if $(ConfigurationName) == DebugBricscad  copy /Y  "$(TargetPath)" "$(TargetDir)$(ProjectName) Bricscad.dll"  /v /y
+
+REM del "$(TargetPath)"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
